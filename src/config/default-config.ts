@@ -1,0 +1,1 @@
+export const apiUrl = "https://lk-stud.api.kreosoft.space/"
