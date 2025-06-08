@@ -1,0 +1,97 @@
+.h1 {
+    font-family: "Raleway", sans-serif;
+    font-size: 40px;
+    font-weight: 500; /* Medium */
+}
+
+.h2 {
+    font-family: "Raleway", sans-serif;
+    font-size: 32px;
+    font-weight: 500;
+}
+
+.h3 {
+    font-family: "Raleway", sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.h4 {
+    font-family: "Raleway", sans-serif;
+    font-size: 16px;
+    font-weight: 400; /* Regular */
+}
+
+.p1 {
+    font-family: "Raleway", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.p2 {
+    font-family: "Raleway", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.button {
+    font-family: "Raleway", sans-serif;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+/* Адаптация под разные экраны */
+@media (max-width: 1536px) {
+  /* Desktop 1536 (уже определено выше) */
+}
+
+@media (max-width: 1200px) {
+  /* Laptop 1200 */
+  .p1 {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 900px) {
+  /* Tablet 900 */
+  .h4 {
+    font-weight: 500; /* Medium */
+  }
+}
+
+@media (max-width: 600px) {
+  /* Tablet 600 */
+  .h4 {
+    font-weight: 500;
+  }
+  .p1, .p2 {
+    font-weight: 400;
+  }
+}
+
+@media (max-width: 375px) {
+  /* Mobile 375 */
+  .h1 {
+    font-size: 26px;
+  }
+  .h2 {
+    font-size: 20px;
+  }
+  .h3 {
+    font-size: 16px;
+  }
+  .h4 {
+    font-size: 14px;
+    font-weight: 400;
+  }
+  .p1 {
+    font-size: 14px;
+  }
+  .p2 {
+    font-size: 12px;
+  }
+  .button {
+    font-size: 14px;
+  }
+}
