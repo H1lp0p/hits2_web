@@ -1,7 +1,10 @@
-import { DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_CREATE_ROOT_CONTAINERS } from "react-dom/client";
+//haha
+// import { DO_NOT_USE_OR_YOU_WILL_BE_FIRED_EXPERIMENTAL_CREATE_ROOT_CONTAINERS } from "react-dom/client";
+
 import { FileDto } from "./file";
 import { CountryDto } from "./country";
 import { ContactDto } from "./contact";
+import { PagedListMetaData } from "./page-list-metadata";
 
 export enum UserType{
     Student = "Student",
@@ -27,4 +30,18 @@ export interface UserProfile{
     address: string | null,
     contacts: ContactDto[] | null,
     userTypes: UserType[] | null
+}
+
+export interface ProfileShortDto {
+  id: string;
+  email: string | null;
+  lastName: string | null;
+  firstName: string | null;
+  patronymic: string | null;
+  birthDate: string;
+}
+
+export interface ProfileShortDtoPagedListWithMetadata {
+  results: ProfileShortDto[] | null;
+  metaData: PagedListMetaData;
 }
