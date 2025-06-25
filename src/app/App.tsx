@@ -8,6 +8,11 @@ import { persistStore } from 'redux-persist'
 import { btnVariant, Button } from '../common/components/button/button'
 import { Input } from '../common/components/input-floating-label/input-floating-label'
 
+import SearchIco from '../assets/Search_Magnifying_Glass.svg?react'
+import ClearIco from '../assets/Close_Circle.svg?react'
+import DateInputWithCustomPicker from '../common/components/date-picker/dateInput'
+import DateTimeSelector from '../common/components/date-time-picker/DateTimeSelector'
+
 function App() {
 
   const [st, setSt] = useState("")
@@ -27,9 +32,12 @@ function App() {
                   <Button onClick={() => console.log("test")} variant={"outlined"}>test</Button>
                   <Button onClick={() => console.log("test")} variant={"filled"}>test</Button>
                   <span className={'button'}>button</span>
-                  <Input id="id" value={st} label='Label' onChange={(e : ChangeEvent<HTMLInputElement>) => setSt(e.target.value)}></Input>
+                  <Input id="id" value={st} label='Label'  preffix={<SearchIco stroke={"#3A3A3A"}/>} suffix={<ClearIco stroke={"#3A3A3A"}/>} onChange={(e : ChangeEvent<HTMLInputElement>) => setSt(e.target.value)}></Input>
+              
+                  <DateTimeSelector></DateTimeSelector>
               </div>
               }
+              <input type='checkbox'></input>
             </>
         </PersistGate>
       </Provider>

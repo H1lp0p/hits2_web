@@ -1,0 +1,49 @@
+.day{
+    height: 48;
+    width: 48;
+    line-height: 48px;
+    text-align: center;
+    cursor:default;
+    color: #aaa;
+    border-radius: 50%;
+    background:#fff;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    user-select: none;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+    overflow: visible;
+
+    &:hover{
+        background-color: rgba(55, 95, 255, 0.08);
+    }
+    &:active{
+        background-color: rgba(55, 95, 255, 0.15);
+    }
+}
+.dayCurrentMonth{
+    color:#000;
+    cursor: pointer;
+}
+
+.daySelected{
+    height: 48;
+    width: 48;
+    line-height: 48px;
+    text-align: center;
+    cursor:default;
+    color:#fff;
+    border-radius: 50%;
+    background-color: #1976d2;
+    border: 1px solid #1976d2;
+    box-sizing: border-box;
+    user-select: none;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+    overflow: visible;
+    
+    &:active{
+        background-color: #fff;
+        color:rgba(55, 95, 255, 1);
+    }
+}

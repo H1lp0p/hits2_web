@@ -1,0 +1,33 @@
+/* Основа для одного чекбокса */
+.checkbox {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #ccc;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.checkbox:hover {
+  border-color: #888;
+}
+
+.checkbox.checked {
+  background: #2196f3;
+  border-color: #2196f3;
+  color: white;
+}
+
+.checkbox:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.checkmark {
+  font-size: 20px;
+  user-select: none;
+}

@@ -1,0 +1,20 @@
+.containerStyle{
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    overflow: hidden;
+    user-select: none;
+}
+
+.input_number{
+    font-size: 50px;
+    align-content: center;
+    border: 1px black solid;
+    border-radius: 8px;
+    box-shadow: none;
+}
+
+.input_number:focus{
+    box-shadow: none;
+    outline: none;
+}

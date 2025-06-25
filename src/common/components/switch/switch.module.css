@@ -1,0 +1,72 @@
+.customSwitch {
+  display: inline-block;
+  position: relative;
+  width: 48px;
+  height: 24px;
+  margin: 0 16px;
+  cursor: pointer;
+  vertical-align: middle;
+  user-select: none;
+}
+.customSwitchDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.customSwitchInput {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  z-index: 2;
+  cursor: inherit;
+}
+.customSwitchTrack {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #ccc;
+  border-radius: 12px;
+  transition: background 0.2s;
+  position: relative;
+}
+.customSwitchChecked .customSwitchTrack {
+  background: #375FFF;
+}
+.customSwitchDisabled .customSwitchTrack {
+  background: #e4e8f0;
+}
+.customSwitchThumb {
+  position: absolute;
+  top: 3px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  transition: left 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  border: 2px solid #fff;
+}
+.customSwitchChecked .customSwitchThumb {
+  left: 26px;
+}
+.customSwitchInput:focus + .customSwitchTrack .customSwitchThumb,
+.customSwitchInput:focus-visible + .customSwitchTrack .customSwitchThumb {
+  box-shadow: 0 0 0 4px rgba(55, 95, 255, 0.2);
+}
+.customSwitch:hover .customSwitchTrack {
+  background: #b3b3b3;
+}
+.customSwitchChecked:hover .customSwitchTrack {
+  background: #2747c7;
+}
+.customSwitch:active .customSwitchThumb,
+.customSwitchInput:active + .customSwitchTrack .customSwitchThumb {
+  box-shadow: 0 0 0 6px rgba(55, 95, 255, 0.12);
+}
+.customSwitch:active .customSwitchThumb{
+    top: 2px;
+    width: 16px;
+    height: 16px;
+}
