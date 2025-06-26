@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { apiUrl } from "../../../../config/default-config"
 import axios, { AxiosResponse } from "axios"
 import ErrorRespone from "../../../../common/ErrorInterface"
+import { loadProflie } from "./user-profile-slice"
+import { ThunkConfig } from "../store-types"
 
 interface UserSessionState{
     accessToken: string | null,
@@ -22,8 +24,8 @@ const initState : UserSessionState = {
 }
 
 const loginUrl = "api/Auth/login"
-const logoutUrl = "/api/Auth/logout"
-const refreshUrl = "/api/Auth/refresh"
+const logoutUrl = "api/Auth/logout"
+const refreshUrl = "api/Auth/refresh"
 
 const LOCAL_KEY_REFRESH = "local_refresh"
 
@@ -54,7 +56,7 @@ export const loginUser = createAsyncThunk<TokenPair, loginInterface>(
                     status: 404,
                     message: "Unathorized",
                     payload: null
-                } 
+                }
                 return rejectWithValue(error_response);
             }
             return {
@@ -147,6 +149,29 @@ export const refreshSession = createAsyncThunk(
     }
 )
 
+export const initSession = createAsyncThunk<{all_good: boolean}, void, ThunkConfig>(
+    "user-session-slice.init",
+    async (_, {dispatch, rejectWithValue}) => {
+        try{
+            const local_refresh = localStorage.getItem(LOCAL_KEY_REFRESH);
+        
+            if (local_refresh){
+
+                await dispatch(refreshSession()).unwrap();
+
+                await dispatch(loadProflie()).unwrap()
+
+                return {all_good: !!local_refresh}
+            }
+
+            return {all_good: false}
+        }
+        catch (e){
+            return rejectWithValue(e as ErrorRespone);
+        }
+    }
+)
+
 const userSessionSlice = createSlice({
     name: "user-session-slice",
     initialState: initState,
@@ -198,6 +223,20 @@ const userSessionSlice = createSlice({
             state.accessToken = null
             state.error = action.error.message || "Untracked error"
             localStorage.removeItem(LOCAL_KEY_REFRESH)
+        })
+
+        //configuring init session thunk
+        builder.addCase(initSession.pending, (state) => {
+            state.pending = true;
+            state.error = null;
+        })
+        builder.addCase(initSession.fulfilled, (state) => {
+            state.pending = false;
+            state.error = null;
+        })
+        builder.addCase(initSession.rejected, (state, action) => {
+            state.pending = false;
+            state.error = action.error.message || "Init faild, you dum"
         })
     }
 })

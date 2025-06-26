@@ -1,23 +1,24 @@
 import React, { ChangeEvent, useState, FocusEvent } from 'react';
-import styles from './input-floating-label.module.css';
+import css from './input-floating-label.module.css';
+import { BaseProps } from '../../interfaces/base-props';
 
+export type InputStates = "disabled" | "error" | "default"
 
-
-export interface FloatingLabelInputProps {
+export interface FloatingLabelInputProps extends BaseProps {
   id: string;
   label: string;
-  value: string;
+  value?: string;
   supportingText?: string;
   preffix?: React.ReactNode;
   suffix?: React.ReactNode;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   type?: string;
-  state?: "disabled" | "error" | "default" 
+  state?: InputStates,
 }
 
 export const Input: React.FC<FloatingLabelInputProps> = (props) => {
   
-  const { id, label, value, onChange, type = 'text', preffix, suffix, supportingText, state } = props
+  const { id, label, value, onChange, type = 'text', preffix, suffix, supportingText, state = "default", style, className} = props
   
   let self_color = undefined
 
@@ -31,24 +32,24 @@ export const Input: React.FC<FloatingLabelInputProps> = (props) => {
   }
 
   const [isFocused, setIsFocused] = useState(false);
-  const isFilled = value.length > 0;
+  const isFilled = value ? value.length > 0 : false;
 
   const handleFocus = (e: FocusEvent<HTMLInputElement>) => setIsFocused(true);
   const handleBlur = (e: FocusEvent<HTMLInputElement>) => setIsFocused(false);
 
 
   return (
-    <div style={{margin: "1rem 0rem"}}>
+    <div style={{...style}} className={className}>
       <div
-        className={`${styles.floatingLabelInput} ${isFocused ? styles.floatingLabelInputFocusWithin : ''}`}
+        className={`${css.floatingLabelInput} ${isFocused ? css.floatingLabelInputFocusWithin : ''}`}
         style={self_color ? {borderColor: self_color} : undefined}
       >
         {preffix &&
-          <div className={styles.preffix}>
+          <div className={css.preffix}>
             {preffix}
           </div>
         }
-        <div className={styles.inputContainer}>
+        <div className={css.inputContainer}>
 
           <input
           id={id}
@@ -57,7 +58,7 @@ export const Input: React.FC<FloatingLabelInputProps> = (props) => {
           onChange={onChange}
           autoComplete="off"
           placeholder=" "
-          className={styles.floatingInput + ` p1`}
+          className={css.floatingInput + ` p1`}
           onFocus={handleFocus}
           onBlur={handleBlur}
           style={self_color ? {color: self_color} : undefined}
@@ -65,7 +66,7 @@ export const Input: React.FC<FloatingLabelInputProps> = (props) => {
         />
         <label
           htmlFor={id}
-          className={`${styles.floatingLabel} ${(isFocused ? (preffix ? styles.focusedLabelWithPref : styles.focusedLabel) : '')} ${isFilled ? (preffix ? styles.filledLabelWithPref : styles.filledLabel) : ''} p2`}
+          className={`${css.floatingLabel} ${(preffix ? css.focusedLabelWithPref : css.focusedLabel)} ${isFilled ? (preffix ? css.filledLabelWithPref : css.filledLabel) : ''} p2`}
           style={self_color ? {color: self_color} : undefined}
         >
           {label}
@@ -73,7 +74,7 @@ export const Input: React.FC<FloatingLabelInputProps> = (props) => {
 
         </div>
         {suffix &&
-          <div className={styles.suffix}>
+          <div className={css.suffix}>
             {suffix}
           </div>
         }

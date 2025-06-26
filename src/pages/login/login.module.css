@@ -1,0 +1,54 @@
+.mainContainer{
+    background-color: #EFEFEF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 1em;
+}
+
+.image{
+    max-width: 875px;
+    width: 45vw;
+    height: auto;
+    object-fit: contain;
+}
+
+.inputGroup{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 622px;
+    background-color: white;
+    padding: 45px 30px;
+    border-radius: 20px;
+    height: fit-content;
+}
+
+@media (max-width: 800px) {
+
+    .mainContainer{
+        flex-direction: column;
+    }
+
+    .image{
+        max-width: 350px;
+        width: 350px;
+    }
+
+    .card{
+        width: 343px;
+    }
+
+    .inputGroup{
+        gap: 18px;
+        margin-bottom: 20px;
+    }
+}

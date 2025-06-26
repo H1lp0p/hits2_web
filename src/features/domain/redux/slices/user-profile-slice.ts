@@ -1,30 +1,39 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UserProfile } from "../../../data/user-profile";
-import { api } from "../../../../common/axios-builder";
 import { apiUrl } from "../../../../config/default-config";
 import axios from "axios";
 import ErrorRespone from "../../../../common/ErrorInterface";
 import { FileDto } from "../../../data/file";
+import { Dependencies } from "../store";
 
-interface UserProfileState{
+export interface UserProfileState{
     user: UserProfile | null,
     pending: boolean,
     error: string | null,
-    avatarBase64: string | null
+    avatar: AvatarState
+}
+
+export interface AvatarState{
+    avatarBase64: string | null,
+    state: "pending" | "error" | "success"
 }
 
 const initState : UserProfileState = {
     user: null,
     pending: false,
     error: null,
-    avatarBase64: null,
+    avatar: {
+        state: "pending",
+        avatarBase64: null
+    },
 }
 
 const loadProfileUrl = "/api/Profile"
 
-const loadProflie = createAsyncThunk(
+export const loadProflie = createAsyncThunk<UserProfile, void, {extra: Dependencies}>(
     "user-profile-slice.load",
-    async (_, {rejectWithValue, dispatch}) => {
+    async (_, {extra, rejectWithValue, dispatch}) => {
+        const {api} = extra;
         try{
             const response = await api.get<UserProfile>(
                 loadProfileUrl
@@ -49,13 +58,10 @@ const loadProflie = createAsyncThunk(
     }
 )
 
-interface SetAvatarDto{
-    base64: string,
-}
-
-const loadAvatar = createAsyncThunk(
+const loadAvatar = createAsyncThunk<AvatarState, FileDto, {extra: Dependencies}>(
     "user-profile-slice.loadAvatat",
-    async (file: FileDto, {rejectWithValue}) => {
+    async (file: FileDto, {rejectWithValue, extra}) => {
+        const {api} = extra
         try{
             const response = await api.get(`api/Files/${file.id}`, {
                 responseType: 'blob'
@@ -63,12 +69,18 @@ const loadAvatar = createAsyncThunk(
 
             const imageBlob = response.data
 
-            return new Promise<SetAvatarDto>((resolve, reject) => {
+            const extension = file.extension.toLowerCase();
+            const mimeType = `image/${
+                extension === 'jpg' ? 'jpeg' : extension
+            }`;
+
+            return await new Promise<AvatarState>((resolve, reject) => {
                 const reader = new FileReader();
                 reader.onloadend = () => {
                     const base64 = reader.result as string
-                    const dto : SetAvatarDto = {
-                        base64
+                    const dto : AvatarState = {
+                        state: "success",
+                        avatarBase64: `${base64}`
                     }
                     resolve(dto)
                 }
@@ -111,12 +123,16 @@ const userProflieSlice = createSlice({
             state.error = action.error.message || "Untraced error"
         })
 
+        builder.addCase(loadAvatar.pending, (state, action) => {
+            state.avatar.state = "pending"
+        })
+
         builder.addCase(loadAvatar.fulfilled, (state, action) => {
-            state.pending = false
-            state.avatarBase64 = action.payload.base64
+            state.avatar.state = "success"
+            state.avatar = action.payload
         })
         builder.addCase(loadAvatar.rejected, (state, action) => {
-            state.pending = false
+            state.avatar.state = "error"
             state.error = action.error.message || "Untracked error"
         })
     }

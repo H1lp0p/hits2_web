@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import style from "./switch.module.css";
+import css from "./switch.module.css";
+import { BaseProps } from "../../interfaces/base-props";
 
-interface SwitchProps {
+interface SwitchProps extends BaseProps {
   defaultChecked?: boolean;
   disabled?: boolean;
-  className?: string;
   onChange?: (checked: boolean) => void; 
 }
 
-const Switch: React.FC<SwitchProps> = ({ defaultChecked = false, disabled = false, className = "" , onChange}) => {
+const Switch: React.FC<SwitchProps> = ({ defaultChecked = false, disabled = false, className, onChange, style}) => {
   const [checked, setChecked] = useState(defaultChecked);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,17 +22,17 @@ const Switch: React.FC<SwitchProps> = ({ defaultChecked = false, disabled = fals
   };
 
   return (
-    <label className={`${style.customSwitch} ${checked ? style.customSwitchChecked : ""}${disabled ? style.customSwitchDisabled : ""} ${className}`}>
+    <label className={`${css.customSwitch} ${checked ? css.customSwitchChecked : ""}${disabled ? css.customSwitchDisabled : ""} ${className}`} style={style}>
       <input
         type="checkbox"
         checked={checked}
         disabled={disabled}
         onChange={handleChange}
-        className={style.customSwitchInput}
+        className={css.customSwitchInput}
         tabIndex={disabled ? -1 : 0}
       />
-      <span className={style.customSwitchTrack}>
-        <span className={style.customSwitchThumb} />
+      <span className={css.customSwitchTrack}>
+        <span className={css.customSwitchThumb} />
       </span>
     </label>
   );
