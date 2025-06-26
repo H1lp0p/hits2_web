@@ -1,0 +1,151 @@
+.background{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000033;
+}
+
+.background[data-visible=false]{
+    display: none;
+}
+
+.sideBar{
+    left: 0;
+    height: 100vh;
+    width: 280px;
+    background-color: white;
+    transition: 200ms;
+}
+
+.sideBarItem{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 4px 32px;
+    box-sizing: border-box;
+}
+
+.sideBarItem > svg{
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+.sideBar a{
+    text-decoration: none;
+    color: var(--color-text);
+}
+
+.sideBar[data-collapsed=true]{
+    width: 118px;
+    transition: 200ms;
+}
+
+.avatar{
+    object-fit: cover;
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+}
+
+.collapseIco{
+    background-color: var(--color-accent);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    top: 50%;
+    left: 100%;
+    transform: translateX(-50%) translateY(-50%);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+}
+
+.sideBar > span{
+    text-decoration: none;
+    color: var(--color-text);
+    margin: 0;
+}
+
+.sideBarItem > svg{
+    stroke: var(--color-text);
+}
+
+.sideBarItem:hover > svg{
+    stroke: var(--color-accent);
+}
+
+.sideBarItem:hover > span{
+    color: var(--color-accent);
+}
+
+.sideBarItem[data-selected=true]{
+    background-color: #375FFF1A;
+    border-left: 3px solid #375FFF;
+}
+
+.sideBarItem[data-selected=true]>svg{
+    stroke: var(--color-accent);
+    transform: translateX(-3px);
+}
+
+.sideBar[data-collapsed=true] .sideBarItem{
+    justify-content: center;
+}
+
+.sideBar[data-collapsed=true] .sideBarItem > span{
+    display: none;
+    opacity: 0;
+    overflow: hidden;
+}
+
+.sideBar[data-collapsed=true] .sideBarItem > svg{
+    justify-self: center;
+}
+
+.collapseBtn{
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+}
+
+.collapseBtn:hover{
+    border-color: var(--color-text);
+}
+
+.content{
+    display: flex;
+    justify-items: center;
+    flex-grow: 2;
+    margin: 0 200px 0 82px;
+}
+
+@media (max-width: 1200px){
+    .background{
+        display: block;
+    }
+
+    .background[data-visible=false]{
+        display: none;
+    }
+
+    .sideBar{
+        position: fixed;
+        z-index: 100;
+    }
+
+    .sideBar[data-collapsed=true]{
+        transform: translateX(-150%);
+    }
+}

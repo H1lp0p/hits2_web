@@ -4,6 +4,7 @@ import { persistedReducer } from "./persist";
 import { AxiosInstance } from "axios";
 import { createApi } from "../../../common/axios-builder";
 import { refreshSession } from "./slices/user-sessions-slice";
+import { RootState } from "./store-types";
 
 export type Dependencies = {
     api: AxiosInstance
@@ -46,21 +47,3 @@ export const createStore = (preloaded? : Partial<RootState>) => {
 
     return {store: real_store, perisstor, deps}
 }
-
-// export const store = configureStore({
-//     reducer: persistedReducer,
-//     middleware: (getDefaultMiddleware) => 
-//         getDefaultMiddleware({
-//             serializableCheck: {
-//                 ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE', 'persist/PAUSE', 'persist/FLUSH', 'persist/PURGE', 'persist/REGISTER'],
-//             }
-//         }),
-// })
-
-
-
-// export type RootState = ReturnType<typeof store.getState>
-
-// export type AppDispatch = typeof store.dispatch
-
-// export const perisstor = persistStore(store);
